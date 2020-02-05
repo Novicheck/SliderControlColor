@@ -66,28 +66,7 @@ class ViewController: UIViewController {
         colorView.backgroundColor = backgroundColor
     }
     
-    private func allert(){
-        let allert = UIAlertController(title: "Attention",
-                                       message: "Please enter a decimal value \n from 0 to 1",
-                                       preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default)
-        allert.addAction(action)
-        present(allert, animated: true, completion: nil)
-    }
-    
-    private func configurationKeyboard(_ textField: UITextField){
-        textField.keyboardType = .decimalPad
-        let keyboardToolbar = UIToolbar()
-        keyboardToolbar.sizeToFit()
-        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
-        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        keyboardToolbar.items = [flexBarButton,doneBarButton]
-        textField.inputAccessoryView = keyboardToolbar
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
+
     
     @IBAction func SliderChanged(_ sender: UISlider) {
         configurationTextLabel()
@@ -99,6 +78,7 @@ class ViewController: UIViewController {
 extension ViewController: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
     
@@ -123,5 +103,31 @@ extension ViewController: UITextFieldDelegate {
             textField.text = "0.0"
             allert()
         }
+    }
+}
+
+extension ViewController {
+    
+    private func allert(){
+        let allert = UIAlertController(title: "Attention",
+                                       message: "Please enter a decimal value \n from 0 to 1",
+                                       preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default)
+        allert.addAction(action)
+        present(allert, animated: true, completion: nil)
+    }
+    
+    private func configurationKeyboard(_ textField: UITextField){
+        textField.keyboardType = .decimalPad
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        keyboardToolbar.items = [flexBarButton,doneBarButton]
+        textField.inputAccessoryView = keyboardToolbar
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
