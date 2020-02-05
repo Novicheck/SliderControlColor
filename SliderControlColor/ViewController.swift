@@ -68,7 +68,7 @@ class ViewController: UIViewController {
     
     private func allert(){
         let allert = UIAlertController(title: "Attention",
-                                       message: "Please enter a decimal value from 0 to 1",
+                                       message: "Please enter a decimal value \n from 0 to 1",
                                        preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default)
         allert.addAction(action)
