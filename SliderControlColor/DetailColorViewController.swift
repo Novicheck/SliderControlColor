@@ -6,9 +6,17 @@
 //  Copyright © 2020 Denis. All rights reserved.
 //
 
+protocol BackgrounColor {
+    var background: UIColor {get}
+}
+ 
+protocol ColorViewControllerDelegate {
+    func setBackground (_ colorBackground: UIColor)
+}
+
 import UIKit
 
-class ViewController: UIViewController {
+class DetailColorViewController: UIViewController,BackgrounColor {
     
     @IBOutlet weak var colorView: UIView!
     
@@ -24,9 +32,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var greenTextField: UITextField!
     @IBOutlet weak var blueTextField: UITextField!
     
+    var delegate: ColorViewControllerDelegate!
+    
+    var background: UIColor {
+        colorView.backgroundColor ?? .white
+    }
+    
+    var color: UIColor!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         defaultConfiguration()
+        colorView.backgroundColor = color
     }
     
     private func defaultConfiguration() {
@@ -34,6 +51,7 @@ class ViewController: UIViewController {
         configurationTextLabel()
         configurationTextField()
         colorView.layer.cornerRadius = 20
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func configurationTextLabel(){
@@ -67,15 +85,19 @@ class ViewController: UIViewController {
     }
     
 
-    
     @IBAction func SliderChanged(_ sender: UISlider) {
         configurationTextLabel()
         configurationTextField()
         changedColorView()
     }
+    
+    @IBAction func doneButtonPressed(){
+        delegate.setBackground(background)
+        navigationController?.popViewController(animated: true)
+    }
 }
 
-extension ViewController: UITextFieldDelegate {
+extension DetailColorViewController: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -106,7 +128,7 @@ extension ViewController: UITextFieldDelegate {
     }
 }
 
-extension ViewController {
+extension DetailColorViewController {
     
     private func allert(){
         let allert = UIAlertController(title: "Attention",

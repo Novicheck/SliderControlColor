@@ -9,22 +9,30 @@
 import UIKit
 
 class ColorViewController: UIViewController {
+    
+    private var viewBackground: UIColor? = .white
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.backgroundColor = viewBackground
+        navigationController?.navigationBar.isHidden = false
     }
-    */
-
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let detailColorVC = segue.destination as? DetailColorViewController else {return}
+        detailColorVC.delegate = self
+        detailColorVC.color = viewBackground
+    }
+}
+extension ColorViewController: ColorViewControllerDelegate {
+    func setBackground(_ colorBackground: UIColor) {
+        viewBackground = colorBackground
+    }
+    
+    
 }
