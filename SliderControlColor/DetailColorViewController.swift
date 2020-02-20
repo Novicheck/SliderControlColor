@@ -7,7 +7,7 @@
 //
 
 protocol BackgrounColor {
-    var background: UIColor {get}
+    var currentColor: UIColor? {get}
 }
  
 protocol ColorViewControllerDelegate {
@@ -34,16 +34,14 @@ class DetailColorViewController: UIViewController,BackgrounColor {
     
     var delegate: ColorViewControllerDelegate!
     
-    var background: UIColor {
-        colorView.backgroundColor ?? .white
-    }
-    
-    var color: UIColor!
+    var currentColor: UIColor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         defaultConfiguration()
-        colorView.backgroundColor = color
+        colorView.backgroundColor = currentColor
+        setValueForSlider()
+        configurationTextField()
     }
     
     private func defaultConfiguration() {
@@ -84,6 +82,14 @@ class DetailColorViewController: UIViewController,BackgrounColor {
         colorView.backgroundColor = backgroundColor
     }
     
+    private func setValueForSlider() {
+        let ciColor = CIColor(color: currentColor ?? .white)
+        
+        redSlider.value = Float(ciColor.red)
+        greenSlider.value = Float(ciColor.green)
+        blueSlider.value = Float(ciColor.blue)
+    }
+    
 
     @IBAction func SliderChanged(_ sender: UISlider) {
         configurationTextLabel()
@@ -92,7 +98,7 @@ class DetailColorViewController: UIViewController,BackgrounColor {
     }
     
     @IBAction func doneButtonPressed(){
-        delegate.setBackground(background)
+        delegate.setBackground(colorView.backgroundColor ?? .white)
         navigationController?.popViewController(animated: true)
     }
 }

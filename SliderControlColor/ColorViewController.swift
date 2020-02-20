@@ -10,15 +10,8 @@ import UIKit
 
 class ColorViewController: UIViewController {
     
-    private var viewBackground: UIColor? = .white
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.backgroundColor = viewBackground
         navigationController?.navigationBar.isHidden = false
     }
     
@@ -26,12 +19,12 @@ class ColorViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailColorVC = segue.destination as? DetailColorViewController else {return}
         detailColorVC.delegate = self
-        detailColorVC.color = viewBackground
+        detailColorVC.currentColor = view.backgroundColor
     }
 }
 extension ColorViewController: ColorViewControllerDelegate {
     func setBackground(_ colorBackground: UIColor) {
-        viewBackground = colorBackground
+        view.backgroundColor = colorBackground
     }
     
     

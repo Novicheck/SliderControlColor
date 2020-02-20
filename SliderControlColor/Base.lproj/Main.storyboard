@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Color View Controller-->
+        <!--MainColorController-->
         <scene sceneID="ttB-1H-3re">
             <objects>
                 <viewController id="tqg-dj-bdk" customClass="ColorViewController" customModule="SliderControlColor" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,7 +17,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="XbF-Yb-d6d"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Qrv-BL-Cuk">
+                    <navigationItem key="navigationItem" title="MainColorController" id="Qrv-BL-Cuk">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="9NV-iD-q34">
                             <connections>
                                 <segue destination="BYZ-38-t0r" kind="show" identifier="ShowDetailCollorView" id="Vth-FY-XoR"/>
@@ -29,7 +29,7 @@
             </objects>
             <point key="canvasLocation" x="170" y="104"/>
         </scene>
-        <!--Detail Color View Controller-->
+        <!--DetailColorController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="DetailColorViewController" customModule="SliderControlColor" customModuleProvider="target" sceneMemberID="viewController">
@@ -185,7 +185,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wpy-N7-Nhh"/>
+                    <navigationItem key="navigationItem" title="DetailColorController" id="wpy-N7-Nhh"/>
                     <connections>
                         <outlet property="blueLabel" destination="9mI-tj-dYv" id="kkn-O2-380"/>
                         <outlet property="blueSlider" destination="Pht-ld-UKi" id="hWJ-5O-qBn"/>
