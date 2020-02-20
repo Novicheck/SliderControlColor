@@ -6,9 +6,17 @@
 //  Copyright © 2020 Denis. All rights reserved.
 //
 
+protocol BackgrounColor {
+    var currentColor: UIColor? {get}
+}
+ 
+protocol ColorViewControllerDelegate {
+    func setBackground (_ colorBackground: UIColor)
+}
+
 import UIKit
 
-class ViewController: UIViewController {
+class DetailColorViewController: UIViewController,BackgrounColor {
     
     @IBOutlet weak var colorView: UIView!
     
@@ -24,9 +32,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var greenTextField: UITextField!
     @IBOutlet weak var blueTextField: UITextField!
     
+    var delegate: ColorViewControllerDelegate!
+    
+    var currentColor: UIColor?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         defaultConfiguration()
+        colorView.backgroundColor = currentColor
+        setValueForSlider()
+        configurationTextField()
     }
     
     private func defaultConfiguration() {
@@ -34,6 +49,7 @@ class ViewController: UIViewController {
         configurationTextLabel()
         configurationTextField()
         colorView.layer.cornerRadius = 20
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func configurationTextLabel(){
@@ -66,16 +82,28 @@ class ViewController: UIViewController {
         colorView.backgroundColor = backgroundColor
     }
     
-
+    private func setValueForSlider() {
+        let ciColor = CIColor(color: currentColor ?? .white)
+        
+        redSlider.value = Float(ciColor.red)
+        greenSlider.value = Float(ciColor.green)
+        blueSlider.value = Float(ciColor.blue)
+    }
     
+
     @IBAction func SliderChanged(_ sender: UISlider) {
         configurationTextLabel()
         configurationTextField()
         changedColorView()
     }
+    
+    @IBAction func doneButtonPressed(){
+        delegate.setBackground(colorView.backgroundColor ?? .white)
+        navigationController?.popViewController(animated: true)
+    }
 }
 
-extension ViewController: UITextFieldDelegate {
+extension DetailColorViewController: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -106,7 +134,7 @@ extension ViewController: UITextFieldDelegate {
     }
 }
 
-extension ViewController {
+extension DetailColorViewController {
     
     private func allert(){
         let allert = UIAlertController(title: "Attention",
